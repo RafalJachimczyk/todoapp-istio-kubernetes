@@ -25,7 +25,7 @@ spec:
     spec:
       containers:
       - name: todo
-        image: gcr.io/todoapp/todoapp-api:v1
+        image: gcr.io/todoapp-221909/todoapp-api:v1
         resources:
           requests:
             cpu: "100m"
