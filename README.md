@@ -53,7 +53,7 @@ $ kubectl apply -f todo-istio.yaml
 
 ```
 
-$ export GATEWAY_URL=35.233.69.246:80
+$ export GATEWAY_URL=xxx.xxx.xxx.xxx:80
 
 $ curl -vv -I http://${GATEWAY_URL}/todos
 
