@@ -1,0 +1,90 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: todoapp-api
+  labels:
+    app: todoapp-api
+spec:
+  ports:
+  - port: 8080
+    name: http
+  selector:
+    app: todoapp-api
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: todoapp-api-v1
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: todoapp-api
+        version: v1
+    spec:
+      containers:
+      - name: todo
+        image: gcr.io/todoapp/todoapp-api:v1
+        resources:
+          requests:
+            cpu: "100m"
+        imagePullPolicy: IfNotPresent #Always
+        ports:
+        - containerPort: 8080
+---
+# apiVersion: extensions/v1beta1
+# kind: Deployment
+# metadata:
+#   name: todo-v2
+# spec:
+#   replicas: 1
+#   template:
+#     metadata:
+#       labels:
+#         app: todo
+#         version: v2
+#     spec:
+#       containers:
+#       - name: todo
+#         image: istio/examples-todo-v2
+#         resources:
+#           requests:
+#             cpu: "100m"
+#         imagePullPolicy: IfNotPresent #Always
+#         ports:
+#         - containerPort: 5000
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: todoapp-gateway
+spec:
+  selector:
+    istio: ingressgateway # use istio default controller
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - "*"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: todoapp
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - todoapp-gateway
+  http:
+  - match:
+    - uri:
+        exact: /todos
+    route:
+    - destination:
+        host: todoapp-api
+        port:
+          number: 8080
