@@ -13,8 +13,7 @@ A sample express/vue TODO app deployed in Kubernetes with ISTIO service mesh.
 
 3) grant cluster admin permissions to the current user. You need these permissions to create the necessary role based access control (RBAC) rules for Istio:
 
-`kubectl create clusterrolebinding cluster-admin-binding   --clusterrole=cluster-admin   --user="$(g
-cloud config get-value core/account)"`
+`kubectl create clusterrolebinding cluster-admin-binding   --clusterrole=cluster-admin   --user="$(gcloud config get-value core/account)"`
 
 4) Install Istio
 
@@ -49,7 +48,7 @@ $ kubectl apply -f todo-istio.yaml
 `$ kubectl get svc istio-ingressgateway -n istio
 -system`
 
-9) Let the magic happen 
+9) Hit the Todos App
 
 ```
 
@@ -59,6 +58,9 @@ $ curl -vv -I http://${GATEWAY_URL}/todos
 
 ```
 
+10) Check out the Grafana (or other services)
+
+`kubectl -n istio-system port-forward $(kubectl -n istio-system get pod -l app=grafana -o jsonpath='{.items[0].metadata.name}') 3000:3000 &`
 
 
 ## References
