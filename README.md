@@ -18,14 +18,13 @@ Goal is to evaluate ISTIO Service Mesh in the context of the three below scenari
 2) Create new ISTIO cluster
 
 ```
-gcloud container clusters create istio-tutorial     --machine-type=n1-standard-2     --num-nodes=4 
-    --no-enable-legacy-authorization --zone=europe-west1-b
+gcloud container clusters create istio-tutorial --machine-type=n1-standard-2 --num-nodes=4 --no-enable-legacy-authorization --zone=europe-west1-b
 ```
 
 3) grant cluster admin permissions to the current user. You need these permissions to create the necessary role based access control (RBAC) rules for Istio:
 
 ```
-kubectl create clusterrolebinding cluster-admin-binding   --clusterrole=cluster-admin   --user="$(gcloud config get-value core/account)"
+kubectl create clusterrolebinding cluster-admin-binding --clusterrole=cluster-admin --user="$(gcloud config get-value core/account)"
 ```
 
 4) Install Istio
@@ -48,8 +47,7 @@ $ git clone https://github.com/RafalJachimczyk/todoapp-istio-kubernetes.git
 7) Inject Istio image into TODO app manifest file 
 
 ```
-istioctl kube-inject -f todo.yaml -o todo-ist
-io.yaml
+istioctl kube-inject -f todo.yaml -o todo-istio.yaml
 ```
 
 7) Deploy TODO app into your new Cluster
@@ -63,8 +61,7 @@ $ kubectl apply -f todo-istio.yaml
 8) Find your ingress gateway IP address 
 
 ```
-$ kubectl get svc istio-ingressgateway -n istio
--system
+$ kubectl get svc istio-ingressgateway -n istio-system
 ```
 
 9) Hit the Todos App
