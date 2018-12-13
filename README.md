@@ -2,6 +2,15 @@
 
 A sample express/vue TODO app deployed in Kubernetes with ISTIO service mesh.
 
+Goal is to evaluate ISTIO Service Mesh in the context of the three below scenarios: 
+
+1) In a single Google Cloud account we have an Web UI and API application. We want to measure traffic and apply security rules. 
+2) Expose the API from the above (step 1) Google Cloud account via sensible method - authentication might be OAUTH, Mutual TLS or simply API Key - we want to understand what's available
+3) Create another Google Cloud account (but within the same organisation) and try to consume the API from the above account (step 1) and have available the same level of analytics and security as in step 1. 
+
+![scenarios](https://raw.githubusercontent.com/RafalJachimczyk/todoapp-istio-kubernetes/master/docs/gcp%20app.png)
+
+
 ## Installing Istio in Kubernetees
 
 1) Launch your GCP panel and Activate Cloud Shell
