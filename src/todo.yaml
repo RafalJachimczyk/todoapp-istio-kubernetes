@@ -33,6 +33,41 @@ spec:
         ports:
         - containerPort: 8080
 ---
+apiVersion: v1
+kind: Service
+metadata:
+  name: todoapp-app
+  labels:
+    app: todoapp-app
+spec:
+  ports:
+  - port: 3000
+    name: http
+  selector:
+    app: todoapp-app
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: todoapp-app-v1
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: todoapp-app
+        version: v1
+    spec:
+      containers:
+      - name: todo-app
+        image: gcr.io/todoapp-221909/todoapp-app:v1
+        resources:
+          requests:
+            cpu: "100m"
+        imagePullPolicy: IfNotPresent #Always
+        ports:
+        - containerPort: 3000
+---
 # apiVersion: extensions/v1beta1
 # kind: Deployment
 # metadata:
@@ -82,9 +117,9 @@ spec:
   http:
   - match:
     - uri:
-        exact: /todos
+        exact: /
     route:
     - destination:
-        host: todoapp-api
+        host: todoapp-app
         port:
-          number: 8080
+          number: 3000
