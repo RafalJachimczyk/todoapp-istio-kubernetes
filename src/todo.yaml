@@ -67,6 +67,9 @@ spec:
         imagePullPolicy: IfNotPresent #Always
         ports:
         - containerPort: 5000
+        env:
+          - name: REACT_APP_TODO_API_HOSTNAME
+            value: todoapp-api
 ---
 # apiVersion: extensions/v1beta1
 # kind: Deployment
@@ -117,7 +120,7 @@ spec:
   http:
   - match:
     - uri:
-        exact: /
+        prefix: "/"
     route:
     - destination:
         host: todoapp-app

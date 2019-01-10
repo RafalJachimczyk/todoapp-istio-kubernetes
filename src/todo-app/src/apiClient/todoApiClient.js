@@ -1,6 +1,6 @@
 const request = require('request-promise');
 
-const hostname = process.env.REACT_APP_TODO_API_HOSTNAME || 'todoapp-api';
+const hostname = process.env.REACT_APP_TODO_API_HOSTNAME;
 const port = process.env.REACT_APP_TODO_API_PORT || 8080;
 
 export async function getTodos() {
