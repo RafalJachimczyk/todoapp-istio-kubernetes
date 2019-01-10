@@ -13,6 +13,9 @@ Goal is to evaluate ISTIO Service Mesh in the context of the three below scenari
 
 ## Installing Istio in Kubernetees
 
+> Versions used
+> Istio 1.0.4
+
 1) Launch your GCP panel and Activate Cloud Shell
 
 2) Create new ISTIO cluster
