@@ -115,7 +115,7 @@ metadata:
   name: todoapp
 spec:
   hosts:
-  - todoapp-app
+  - "*"
   gateways:
   - todoapp-gateway
   http:
@@ -134,7 +134,7 @@ metadata:
   name: todoapi
 spec:
   hosts:
-  - todoapp-api
+  - "*"
   gateways:
   - todoapp-gateway
   http:
