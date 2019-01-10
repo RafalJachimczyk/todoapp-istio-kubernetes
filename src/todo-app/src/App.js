@@ -34,7 +34,7 @@ class TodosTable extends Component {
       10000
     );
     //todo: learn how to get service endpoints using istio/pilot ? 
-    const host = "http://" + window.location.hostname;
+    const host = window.location.hostname;
     this.setState({
       todos: await getTodos(host)
     })
@@ -47,7 +47,7 @@ class TodosTable extends Component {
 
   async tick() {
     //todo: learn how to get service endpoints using istio/pilot ? 
-    const host = "http://" + window.location.hostname;
+    const host = window.location.hostname;
     this.setState({
       todos: await getTodos(host)
     })
