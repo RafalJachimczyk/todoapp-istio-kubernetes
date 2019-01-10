@@ -65,11 +65,12 @@ spec:
           requests:
             cpu: "100m"
         imagePullPolicy: IfNotPresent #Always
+        env:
+        - name: REACT_APP_TODO_API_HOSTNAME
+          value: todoapp-api
         ports:
         - containerPort: 5000
-        env:
-          - name: REACT_APP_TODO_API_HOSTNAME
-            value: todoapp-api
+
 ---
 # apiVersion: extensions/v1beta1
 # kind: Deployment
@@ -106,7 +107,8 @@ spec:
       name: http
       protocol: HTTP
     hosts:
-    - "*"
+    - todoapp-app
+    - todoapp-api
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
@@ -114,7 +116,7 @@ metadata:
   name: todoapp
 spec:
   hosts:
-  - "*"
+  - todoapp-app
   gateways:
   - todoapp-gateway
   http:
@@ -126,3 +128,22 @@ spec:
         host: todoapp-app
         port:
           number: 5000
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: todoapi
+spec:
+  hosts:
+  - todoapp-api
+  gateways:
+  - todoapp-gateway
+  http:
+  - match:
+    - uri:
+        prefix: "/todos"
+    route:
+    - destination:
+        host: todoapp-api
+        port:
+          number: 8080
