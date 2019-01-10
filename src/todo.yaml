@@ -107,8 +107,7 @@ spec:
       name: http
       protocol: HTTP
     hosts:
-    - todoapp-app
-    - todoapp-api
+    - "*"
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
