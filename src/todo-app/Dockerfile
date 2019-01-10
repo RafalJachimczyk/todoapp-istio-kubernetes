@@ -12,7 +12,6 @@ COPY public /usr/src/app/public
 
 #RUN npm install react-scripts -g --silent
 RUN npm run build
-COPY /build /usr/src/app/build
 
 FROM nginx:alpine
 COPY --from=build-deps /usr/src/app/build /usr/share/nginx/html

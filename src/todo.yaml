@@ -41,7 +41,7 @@ metadata:
     app: todoapp-app
 spec:
   ports:
-  - port: 8000
+  - port: 80
     name: http
   selector:
     app: todoapp-app
