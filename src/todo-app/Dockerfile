@@ -12,9 +12,10 @@ COPY public /usr/src/app/public
 
 #RUN npm install react-scripts -g --silent
 RUN npm run build
+COPY /build /usr/share/nginx/html
 
 FROM nginx:alpine
-COPY build /usr/share/nginx/html
+
 EXPOSE 80
 
 CMD ["nginx", "-g", "daemon off;"]
