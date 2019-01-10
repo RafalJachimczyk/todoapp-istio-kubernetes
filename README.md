@@ -46,18 +46,31 @@ export PATH=$PWD/bin:$PATH
 
 ```
 $ git clone https://github.com/RafalJachimczyk/todoapp-istio-kubernetes.git
+$ cd todoapp-istio-kubernetes/src/
 ```
+
+6.1) Build your docker images
+
+``` 
+$ cd src/todo-api && ./build-service.sh && cd ../todo-app && ./build-service.sh && cd ../..
+```
+
+6.2) Push docker images to GCR docker images registry
+
+```
+$ gcloud docker -- push gcr.io/todoapp-221909/todoapp-api:v1
+$ gcloud docker -- push gcr.io/todoapp-221909/todoapp-app:v1
+```
+
 7) Inject Istio image into TODO app manifest file 
 
 ```
-istioctl kube-inject -f todo.yaml -o todo-istio.yaml
+$ istioctl kube-inject -f todo.yaml -o todo-istio.yaml
 ```
 
 7) Deploy TODO app into your new Cluster
 
 ```
-$ cd todoapp-istio-kubernetes/src/
-
 $ kubectl apply -f todo-istio.yaml
 ```
 
