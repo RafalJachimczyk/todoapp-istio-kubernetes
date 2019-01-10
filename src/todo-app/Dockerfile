@@ -1,4 +1,4 @@
-FROM node:8
+FROM node:8 as build-deps
 
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
@@ -12,10 +12,9 @@ COPY public /usr/src/app/public
 
 #RUN npm install react-scripts -g --silent
 RUN npm run build
-COPY /build /usr/share/nginx/html
+COPY /build /usr/src/app/build
 
 FROM nginx:alpine
-
+COPY --from=build-deps /usr/src/app/build /usr/share/nginx/html
 EXPOSE 80
-
 CMD ["nginx", "-g", "daemon off;"]
