@@ -1,6 +1,6 @@
 # TLDR
 
-A sample express/vue TODO app deployed in Kubernetes with ISTIO service mesh.
+A sample express/REACT TODO app deployed in Kubernetes with ISTIO service mesh.
 
 Goal is to evaluate ISTIO Service Mesh in the context of the three below scenarios: 
 
