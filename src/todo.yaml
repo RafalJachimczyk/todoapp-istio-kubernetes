@@ -104,7 +104,8 @@ spec:
       name: http
       protocol: HTTP
     hosts:
-    - "*"
+    - "todoapp.example.com"
+    - "todoapi.example.com"
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
@@ -112,7 +113,7 @@ metadata:
   name: todoapp
 spec:
   hosts:
-  - "*"
+  - "todoapp.example.com"
   gateways:
   - todoapp-gateway
   http:
@@ -131,7 +132,7 @@ metadata:
   name: todoapi
 spec:
   hosts:
-  - "*"
+  - "todoapi.example.com"
   gateways:
   - todoapp-gateway
   http:
@@ -143,3 +144,4 @@ spec:
         host: todoapp-api
         port:
           number: 8080
+---
