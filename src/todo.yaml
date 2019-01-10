@@ -41,7 +41,7 @@ metadata:
     app: todoapp-app
 spec:
   ports:
-  - port: 5000
+  - port: 8000
     name: http
   selector:
     app: todoapp-app
@@ -66,30 +66,7 @@ spec:
             cpu: "100m"
         imagePullPolicy: IfNotPresent #Always
         ports:
-        - containerPort: 5000
-
----
-# apiVersion: extensions/v1beta1
-# kind: Deployment
-# metadata:
-#   name: todo-v2
-# spec:
-#   replicas: 1
-#   template:
-#     metadata:
-#       labels:
-#         app: todo
-#         version: v2
-#     spec:
-#       containers:
-#       - name: todo
-#         image: istio/examples-todo-v2
-#         resources:
-#           requests:
-#             cpu: "100m"
-#         imagePullPolicy: IfNotPresent #Always
-#         ports:
-#         - containerPort: 5000
+        - containerPort: 80
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
@@ -124,7 +101,7 @@ spec:
     - destination:
         host: todoapp-app
         port:
-          number: 5000
+          number: 80
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
